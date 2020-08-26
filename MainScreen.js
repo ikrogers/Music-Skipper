@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, View, ToastAndroid } from "react-native";
+import { StyleSheet, View } from "react-native";
 import CupertinoButtonPurple from "./assets/components/CupertinoButtonPurple";
 import CupertinoButtonWarning from "./assets/components/CupertinoButtonWarning";
 import CupertinoButtonSuccess from "./assets/components/CupertinoButtonSuccess";
@@ -11,11 +11,13 @@ import Constants from "expo-constants";
 
 function MainScreen(props) {
   const showToastWithGravity = () => {
-    alert("You tapped the button!");
-    ToastAndroid.showWithGravity(
-      "All Your Base Are Belong To Us",
-      ToastAndroid.SHORT,
-      ToastAndroid.CENTER
+    AudioManager mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+
+    if(mAudioManager.isMusicActive()) {
+        Intent i = new Intent(SERVICECMD);
+        i.putExtra(CMDNAME , CMDSTOP );
+        YourApplicationClass.this.sendBroadcast(i);
+    }
     );
   };
 
